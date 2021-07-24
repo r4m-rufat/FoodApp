@@ -1,6 +1,6 @@
 package com.example.deliveryapp.apis
 
-import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.models.ComplexResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -10,8 +10,8 @@ interface IApi {
     @GET("complexSearch?")
     fun getFoodInformations(
         @Query("query") query: String,
-        @Query("offset") offset: Int,
+        @Query("offset") offset: String,
         @Query("apiKey") apiKey: String
-    ): Call<List<ResultsItem>>
+    ): Call<ComplexResponse>
 
 }

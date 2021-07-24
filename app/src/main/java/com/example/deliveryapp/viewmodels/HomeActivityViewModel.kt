@@ -1,24 +1,23 @@
 package com.example.deliveryapp.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.deliveryapp.models.ResultsItem
 import com.example.deliveryapp.repositories.HomeDeliveryRepository
+import kotlinx.coroutines.launch
 
 class HomeActivityViewModel : ViewModel() {
+    private val TAG = "HomeActivityViewModel"
+    var deliveryList: MutableState<List<ResultsItem?>?> = mutableStateOf(listOf())
 
-    lateinit var deliveryList: MutableLiveData<List<ResultsItem>>
 
-
-    suspend fun init() {
-        if (deliveryList == null) {
-            deliveryList = HomeDeliveryRepository.instanceOf()!!.getDeliveryData()
+    init {
+        viewModelScope.launch {
+            HomeDeliveryRepository.instanceOf()!!
+                .setDeliveryData(deliveryList)
         }
-    }
-
-    fun getDeliveryList(): LiveData<List<ResultsItem>> {
-        return deliveryList
     }
 
 }

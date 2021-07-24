@@ -1,14 +1,13 @@
 package com.example.deliveryapp.repositories
 
 import android.util.Log
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.MutableState
 import com.example.deliveryapp.apis.ApiClient
 import com.example.deliveryapp.apis.IApi
+import com.example.deliveryapp.models.ComplexResponse
 import com.example.deliveryapp.models.ResultsItem
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,12 +15,11 @@ import retrofit2.Response
 class HomeDeliveryRepository {
 
     private val TAG = "HomeDeliveryRepository"
-    var deliveryList: List<ResultsItem> = ArrayList()
 
-    companion object Factory{
+    companion object Factory {
         var INSTANCE: HomeDeliveryRepository? = null
         fun instanceOf(): HomeDeliveryRepository? {
-            if (INSTANCE != null){
+            if (INSTANCE == null) {
                 INSTANCE = HomeDeliveryRepository()
             }
             return INSTANCE
@@ -35,39 +33,34 @@ class HomeDeliveryRepository {
      * @see IO Dispatcher
      */
 
-    suspend fun getDeliveryData(): MutableLiveData<List<ResultsItem>>{
-        val  deliveryData: MutableLiveData<List<ResultsItem>> = MutableLiveData()
-        var deliveryJob = CoroutineScope(IO).launch {
-            val api: IApi = ApiClient().getRetrofit()!!.create(IApi::class.java)
-            val apiCall: Call<List<ResultsItem>> = api.getFoodInformations("pasta", 0, "64fb3e15382e4e9392adde24f23e0e9a")
-            setDeliveryData(apiCall)
-            deliveryData.value = deliveryList
+     suspend fun setDeliveryData(deliveryData: MutableState<List<ResultsItem?>?>) {
+        withContext(IO) {
+            deliveryDataSetup(deliveryData)
         }
-        deliveryJob.join()
-        return deliveryData
+
     }
 
-    /**
-     * set delivery data to "deliveryList" with enqueue
-     */
-    fun setDeliveryData(apiCall: Call<List<ResultsItem>>){
+    private fun deliveryDataSetup(deliveryData: MutableState<List<ResultsItem?>?>) {
 
-        apiCall.enqueue(object : Callback<List<ResultsItem>>{
+        val apicall = ApiClient.getRetrofit()!!.create(IApi::class.java).getFoodInformations("pasta", "1", "64fb3e15382e4e9392adde24f23e0e9a")
+        apicall.enqueue(object : Callback<ComplexResponse>{
             override fun onResponse(
-                call: Call<List<ResultsItem>>,
-                response: Response<List<ResultsItem>>
+                call: Call<ComplexResponse>,
+                response: Response<ComplexResponse>
             ) {
                 if (response.isSuccessful){
-                    deliveryList = response.body()!!
+                    deliveryData.value =response.body()!!.results
                 }
+                Log.d(TAG, "onResponse: Delivery list successfully comes")
             }
 
-            override fun onFailure(call: Call<List<ResultsItem>>, t: Throwable) {
-                Log.d(TAG, "onFailure: List doesn't come")
+            override fun onFailure(call: Call<ComplexResponse>, t: Throwable) {
+                deliveryData.value = null
+                Log.d(TAG, "onFailure: Delivery list doesn't come")
             }
+
 
         })
-
     }
 
 }

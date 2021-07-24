@@ -3,10 +3,10 @@ package com.example.deliveryapp.apis
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ApiClient {
+object ApiClient {
 
     private var retrofit: Retrofit? =  null
-    private val BASE_URL: String = ""
+    private val BASE_URL: String = "https://api.spoonacular.com/recipes/"
 
     fun getRetrofit(): Retrofit? {
 
@@ -22,6 +22,5 @@ class ApiClient {
         return retrofit
 
     }
-
 
 }
