@@ -1,6 +1,5 @@
 package com.example.deliveryapp.designs
 
-import androidx.compose.animation.expandHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -19,8 +18,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.utils.PAGE_SIZE
+import com.example.deliveryapp.viewmodels.HomeActivityViewModel
 
 @Composable
 fun TextFieldDesign(modifier: Modifier = Modifier) {
@@ -68,13 +70,23 @@ fun TextFieldDesign(modifier: Modifier = Modifier) {
 @Composable
 fun FoodList(
     modifier: Modifier = Modifier,
-    recipes: List<ResultsItem?>?
+    recipes: List<ResultsItem?>?,
+    viewModelProvider: HomeActivityViewModel,
+    page: Int
+
 ) {
     
     LazyColumn(modifier = modifier) {
 
         itemsIndexed(items = recipes!!){ index, item ->
 
+            viewModelProvider.onChangeScrollPosition(index)
+
+            if ((index + 1) >= (page * PAGE_SIZE)){
+
+                viewModelProvider.nextRecipePage()
+
+            }
             RecipeCard(recipe = item, modifier = Modifier.padding(vertical = 10.dp))
 
         }

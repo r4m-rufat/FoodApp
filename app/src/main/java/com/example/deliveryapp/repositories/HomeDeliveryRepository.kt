@@ -6,6 +6,8 @@ import com.example.deliveryapp.apis.ApiClient
 import com.example.deliveryapp.apis.IApi
 import com.example.deliveryapp.models.ComplexResponse
 import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.utils.API_KEY
+import com.example.deliveryapp.utils.TAG
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -13,8 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class HomeDeliveryRepository {
-
-    private val TAG = "HomeDeliveryRepository"
 
     companion object Factory {
         var INSTANCE: HomeDeliveryRepository? = null
@@ -33,16 +33,16 @@ class HomeDeliveryRepository {
      * @see IO Dispatcher
      */
 
-     suspend fun setDeliveryData(deliveryData: MutableState<List<ResultsItem?>?>) {
+     suspend fun setDeliveryData(deliveryData: MutableState<List<ResultsItem?>?>,  query: String, offset: String) {
         withContext(IO) {
-            deliveryDataSetup(deliveryData)
+            deliveryDataSetup(deliveryData, query, offset)
         }
 
     }
 
-    private fun deliveryDataSetup(deliveryData: MutableState<List<ResultsItem?>?>) {
+    private fun deliveryDataSetup(deliveryData: MutableState<List<ResultsItem?>?>, query: String, offset: String) {
 
-        val apicall = ApiClient.getRetrofit()!!.create(IApi::class.java).getFoodInformations("pasta", "3", "64fb3e15382e4e9392adde24f23e0e9a")
+        val apicall = ApiClient.getRetrofit()!!.create(IApi::class.java).getFoodInformations(query, offset, API_KEY)
         apicall.enqueue(object : Callback<ComplexResponse>{
             override fun onResponse(
                 call: Call<ComplexResponse>,

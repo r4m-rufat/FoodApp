@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -38,15 +39,18 @@ class HomeActivity : ComponentActivity() {
             DeliveryAppTheme {
 
                 Column(modifier = Modifier.fillMaxSize()) {
+
                     TextFieldDesign()
 
                     Spacer(modifier = Modifier.height(10.dp))
 
                     val deliveryList = viewModelProvider.deliveryList.value
 
+                    val page = viewModelProvider.page.value
+
                     deliveryList?.let {recipes ->
 
-                        FoodList(recipes = recipes, modifier = Modifier.padding(horizontal = 10.dp))
+                        FoodList(recipes = recipes, modifier = Modifier.padding(horizontal = 10.dp), page = page, viewModelProvider = viewModelProvider)
 
                     }
                 }
@@ -60,12 +64,14 @@ class HomeActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
 
-    TextFieldDesign(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp)
-    )
+    Column(modifier = Modifier.fillMaxSize()) {
+        TextFieldDesign(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp)
+        )
 
+    }
 }
 
 @Composable

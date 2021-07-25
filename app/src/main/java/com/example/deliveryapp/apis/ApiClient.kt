@@ -1,12 +1,12 @@
 package com.example.deliveryapp.apis
 
+import com.example.deliveryapp.utils.BASE_URL
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
 
     private var retrofit: Retrofit? =  null
-    private val BASE_URL: String = "https://api.spoonacular.com/recipes/"
 
     fun getRetrofit(): Retrofit? {
 
