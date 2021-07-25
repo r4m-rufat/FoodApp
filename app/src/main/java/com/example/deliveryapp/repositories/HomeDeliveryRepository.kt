@@ -42,7 +42,7 @@ class HomeDeliveryRepository {
 
     private fun deliveryDataSetup(deliveryData: MutableState<List<ResultsItem?>?>) {
 
-        val apicall = ApiClient.getRetrofit()!!.create(IApi::class.java).getFoodInformations("pasta", "1", "64fb3e15382e4e9392adde24f23e0e9a")
+        val apicall = ApiClient.getRetrofit()!!.create(IApi::class.java).getFoodInformations("pasta", "3", "64fb3e15382e4e9392adde24f23e0e9a")
         apicall.enqueue(object : Callback<ComplexResponse>{
             override fun onResponse(
                 call: Call<ComplexResponse>,
