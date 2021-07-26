@@ -1,6 +1,7 @@
 package com.example.deliveryapp.designs
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.models.ResultsItem
 import com.example.deliveryapp.utils.PAGE_SIZE
+import com.example.deliveryapp.utils.TAG
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -72,7 +74,7 @@ fun TextFieldDesign(
             Text(
                 text = "Search",
                 color = Color.White,
-                fontSize = 20.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold
             )
 
@@ -103,7 +105,7 @@ fun FoodList(
             viewModelProvider.onChangeScrollPosition(index)
 
             /**
-             * pagination check
+             * pagination statement
              */
             if ((index + 1) >= (page * PAGE_SIZE)) {
 
