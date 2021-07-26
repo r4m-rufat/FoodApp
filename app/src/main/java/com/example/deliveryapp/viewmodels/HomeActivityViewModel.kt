@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.FieldPosition
 
 
 class HomeActivityViewModel : ViewModel() {
@@ -23,12 +22,11 @@ class HomeActivityViewModel : ViewModel() {
     var deliveryList: MutableState<List<ResultsItem?>?> = mutableStateOf(listOf())
     val page = mutableStateOf(0)
     private var listScrollPosition = 0
+    val query = mutableStateOf("")
+    val scrollPositionInSearch = mutableStateOf(false)
 
     init {
-        viewModelScope.launch {
-            HomeDeliveryRepository.instanceOf()!!
-                .setDeliveryData(deliveryList, "pasta", page.value.toString())
-        }
+        getRecipeList()
     }
 
     private fun incrementPageNumber(){
@@ -53,6 +51,7 @@ class HomeActivityViewModel : ViewModel() {
 
     fun nextRecipePage(){
 
+        scrollPositionInSearch.value = false
         viewModelScope.launch {
 
             if ((listScrollPosition + 1) >= (page.value * PAGE_SIZE)){
@@ -84,6 +83,22 @@ class HomeActivityViewModel : ViewModel() {
 
         }
 
+    }
+
+    fun resetSearchState(){
+
+        scrollPositionInSearch.value = true
+        page.value = 0
+        onChangeScrollPosition(0)
+        getRecipeList()
+
+    }
+
+    private fun getRecipeList(){
+        viewModelScope.launch {
+            HomeDeliveryRepository.instanceOf()!!
+                .setDeliveryData(deliveryList, query = query.value, page.value.toString())
+        }
     }
 
 }

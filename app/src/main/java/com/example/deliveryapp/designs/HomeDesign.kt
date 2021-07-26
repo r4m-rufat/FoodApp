@@ -1,9 +1,12 @@
 package com.example.deliveryapp.designs
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -18,29 +21,33 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.ViewModelProvider
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.models.ResultsItem
 import com.example.deliveryapp.utils.PAGE_SIZE
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
-fun TextFieldDesign(modifier: Modifier = Modifier) {
+fun TextFieldDesign(
+    modifier: Modifier = Modifier,
+    onClick: (text: String, scrollPosition: Int) -> Unit
+) {
 
-    var textFieldState by remember {
+    var queryState by remember {
         mutableStateOf("")
     }
 
     Row(modifier = modifier, verticalAlignment = Alignment.Bottom) {
 
         OutlinedTextField(
-            value = textFieldState,
+            value = queryState,
             singleLine = true,
             label = {
                 Text(text = "Search")
             },
             onValueChange = { newText ->
-                textFieldState = newText
+                queryState = newText
             },
             modifier = Modifier
                 .weight(7f)
@@ -49,17 +56,25 @@ fun TextFieldDesign(modifier: Modifier = Modifier) {
             textStyle = TextStyle(fontSize = 18.sp)
         )
 
-        Button(
-            onClick = { /*TODO*/ },
+        OutlinedButton(
+            onClick = {
+                onClick(queryState, 0)
+            },
             modifier = Modifier
                 .weight(3f)
                 .padding(end = 10.dp)
                 .height(52.dp)
                 .clip(RoundedCornerShape(5.dp)),
             colors = ButtonDefaults.buttonColors(Color.Cyan),
+            border = BorderStroke(1.dp, Color.Blue)
         ) {
 
-            Text(text = "Search", color = Color.White)
+            Text(
+                text = "Search",
+                color = Color.White,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.SemiBold
+            )
 
         }
 
@@ -67,22 +82,30 @@ fun TextFieldDesign(modifier: Modifier = Modifier) {
 
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
 fun FoodList(
     modifier: Modifier = Modifier,
     recipes: List<ResultsItem?>?,
     viewModelProvider: HomeActivityViewModel,
     page: Int
-
 ) {
-    
-    LazyColumn(modifier = modifier) {
 
-        itemsIndexed(items = recipes!!){ index, item ->
+    val listState = rememberLazyListState()
+
+    // remember a CoroutineScope to be able to launch
+    val coroutineScope = rememberCoroutineScope()
+
+    LazyColumn(modifier = modifier, state = listState) {
+
+        itemsIndexed(items = recipes!!) { index, item ->
 
             viewModelProvider.onChangeScrollPosition(index)
 
-            if ((index + 1) >= (page * PAGE_SIZE)){
+            /**
+             * pagination check
+             */
+            if ((index + 1) >= (page * PAGE_SIZE)) {
 
                 viewModelProvider.nextRecipePage()
 
@@ -90,9 +113,15 @@ fun FoodList(
             RecipeCard(recipe = item, modifier = Modifier.padding(vertical = 10.dp))
 
         }
-        
+
     }
-    
+
+    if (viewModelProvider.scrollPositionInSearch.value){
+        coroutineScope.launch {
+            listState.animateScrollToItem(0)
+        }
+    }
+
 }
 
 @Composable
