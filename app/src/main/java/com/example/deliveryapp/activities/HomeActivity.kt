@@ -27,6 +27,7 @@ class HomeActivity : ComponentActivity() {
 
         var viewModelProvider = ViewModelProvider(this).get(HomeActivityViewModel::class.java)
         var selectedCategoryViewModel = ViewModelProvider(this).get(SelectedCategoryViewModel::class.java)
+        viewModelProvider.query.value = selectedCategoryViewModel.selectedCategory.value
 
         setContent {
             DeliveryAppTheme {
@@ -39,7 +40,7 @@ class HomeActivity : ComponentActivity() {
                         viewModelProvider.resetSearchState()
                     })
                     Spacer(modifier = Modifier.height(5.dp))
-                    MenuList(modifier = Modifier.padding(horizontal = 5.dp).fillMaxWidth(), menuList = getAllFoodCategoriesValue(), selectedCategoryViewModel)
+                    MenuList(modifier = Modifier.padding(horizontal = 5.dp).fillMaxWidth(), menuList = getAllFoodCategoriesValue(), selectedCategoryViewModel, homeViewModel = viewModelProvider)
 
                     Spacer(modifier = Modifier.height(5.dp))
 

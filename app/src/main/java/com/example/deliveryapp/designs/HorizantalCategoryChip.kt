@@ -15,13 +15,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.deliveryapp.viewmodels.HomeActivityViewModel
 import com.example.deliveryapp.viewmodels.SelectedCategoryViewModel
 
 @Composable
 fun MenuList(
     modifier: Modifier = Modifier,
     menuList: List<String>,
-    viewModel: SelectedCategoryViewModel
+    viewModel: SelectedCategoryViewModel,
+    homeViewModel: HomeActivityViewModel
 ) {
     LazyRow(modifier = modifier) {
 
@@ -31,6 +33,7 @@ fun MenuList(
                 modifier = Modifier.padding(5.dp),
                 item = item,
                 selectedCategoryViewModel = viewModel,
+                homeActivityViewModel = homeViewModel,
                 selectedCategory = item
             )
 
@@ -45,7 +48,8 @@ fun CardItem(
     modifier: Modifier = Modifier,
     item: String,
     selectedCategoryViewModel: SelectedCategoryViewModel,
-    selectedCategory: String
+    homeActivityViewModel: HomeActivityViewModel,
+    selectedCategory: String,
 ) {
 
     Card(
@@ -53,6 +57,8 @@ fun CardItem(
             enabled = true,
             onClick = {
                 selectedCategoryViewModel.selectedCategoryChanged(selectedCategory)
+                homeActivityViewModel.query.value = selectedCategoryViewModel.selectedCategory.value
+                homeActivityViewModel.onCategorySelected(homeActivityViewModel.query.value)
             }
         ),
         elevation = 3.dp,

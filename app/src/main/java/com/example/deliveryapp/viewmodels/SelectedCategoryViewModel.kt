@@ -7,6 +7,7 @@ class SelectedCategoryViewModel: ViewModel() {
 
     val selectedCategory = mutableStateOf("")
 
+    // when selected category chip it is written the "selectedCategory"
     fun selectedCategoryChanged(category: String){
 
         selectedCategory.value = category

@@ -27,7 +27,7 @@ class HomeActivityViewModel : ViewModel() {
     val scrollPositionInSearch = mutableStateOf(false)
 
     init {
-        getRecipeList()
+        getRecipeList(query.value)
     }
 
     private fun incrementPageNumber(){
@@ -93,15 +93,24 @@ class HomeActivityViewModel : ViewModel() {
         scrollPositionInSearch.value = true
         page.value = 0
         onChangeScrollPosition(0)
-        getRecipeList()
+        getRecipeList(query.value)
 
     }
 
-    private fun getRecipeList(){
+    private fun getRecipeList(query: String){
         viewModelScope.launch {
             HomeDeliveryRepository.instanceOf()!!
-                .setDeliveryData(deliveryList, query = query.value, page.value.toString())
+                .setDeliveryData(deliveryList, query = query, page.value.toString())
         }
+    }
+
+    fun onCategorySelected(category: String){
+
+        scrollPositionInSearch.value = true
+        page.value = 0
+        onChangeScrollPosition(0)
+        getRecipeList(category)
+
     }
 
 }
