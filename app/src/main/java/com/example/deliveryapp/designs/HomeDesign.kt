@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -66,9 +68,9 @@ fun TextFieldDesign(
                 .weight(3f)
                 .padding(end = 10.dp)
                 .height(52.dp)
-                .clip(RoundedCornerShape(5.dp)),
-            colors = ButtonDefaults.buttonColors(Color.Cyan),
-            border = BorderStroke(1.dp, Color.Blue)
+                .clip(RoundedCornerShape(10.dp))
+                .border(2.dp, Color.Cyan, RoundedCornerShape(10.dp)),
+            colors = ButtonDefaults.buttonColors(Color.Blue)
         ) {
 
             Text(

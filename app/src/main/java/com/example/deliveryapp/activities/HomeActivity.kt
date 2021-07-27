@@ -1,13 +1,11 @@
-package com.example.deliveryapp
+package com.example.deliveryapp.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
@@ -16,7 +14,9 @@ import com.example.deliveryapp.designs.FoodList
 import com.example.deliveryapp.designs.MenuList
 import com.example.deliveryapp.designs.TextFieldDesign
 import com.example.deliveryapp.ui.theme.DeliveryAppTheme
+import com.example.deliveryapp.utils.recipe_list.getAllFoodCategoriesValue
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
+import com.example.deliveryapp.viewmodels.SelectedCategoryViewModel
 
 class HomeActivity : ComponentActivity() {
 
@@ -26,6 +26,7 @@ class HomeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         var viewModelProvider = ViewModelProvider(this).get(HomeActivityViewModel::class.java)
+        var selectedCategoryViewModel = ViewModelProvider(this).get(SelectedCategoryViewModel::class.java)
 
         setContent {
             DeliveryAppTheme {
@@ -38,7 +39,7 @@ class HomeActivity : ComponentActivity() {
                         viewModelProvider.resetSearchState()
                     })
                     Spacer(modifier = Modifier.height(5.dp))
-                    MenuList(modifier = Modifier.padding(horizontal = 5.dp).fillMaxWidth(), menuList = listOf("Pasta", "Beef", "Soup", "Onion", "Breakfast", "Potato", "Tomato", "Rice"))
+                    MenuList(modifier = Modifier.padding(horizontal = 5.dp).fillMaxWidth(), menuList = getAllFoodCategoriesValue(), selectedCategoryViewModel)
 
                     Spacer(modifier = Modifier.height(5.dp))
 
@@ -64,7 +65,6 @@ fun DefaultPreview() {
 
     Column(modifier = Modifier.fillMaxSize()) {
 
-        CardItem(modifier = Modifier.padding(5.dp), item = "Pasta")
     }
 }
 
