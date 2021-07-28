@@ -1,8 +1,9 @@
 package com.example.deliveryapp.models.receipes
 
-data class ResultsItem(
+data class ReciepeResponse(
+	val instructions: String? = null,
 	val sustainable: Boolean? = null,
-	val analyzedInstructions: List<Any?>? = null,
+	val analyzedInstructions: List<AnalyzedInstructionsItem?>? = null,
 	val glutenFree: Boolean? = null,
 	val veryPopular: Boolean? = null,
 	val healthScore: Int? = null,
@@ -16,23 +17,22 @@ data class ResultsItem(
 	val servings: Int? = null,
 	val vegetarian: Boolean? = null,
 	val id: Int? = null,
-	val preparationMinutes: Int? = null,
 	val imageType: String? = null,
+	val winePairing: WinePairing? = null,
 	val summary: String? = null,
-	val cookingMinutes: Int? = null,
 	val image: String? = null,
 	val veryHealthy: Boolean? = null,
 	val vegan: Boolean? = null,
 	val cheap: Boolean? = null,
+	val extendedIngredients: List<ExtendedIngredientsItem?>? = null,
 	val dishTypes: List<String?>? = null,
 	val gaps: String? = null,
-	val cuisines: List<String?>? = null,
+	val cuisines: List<Any?>? = null,
 	val lowFodmap: Boolean? = null,
 	val weightWatcherSmartPoints: Int? = null,
 	val occasions: List<Any?>? = null,
 	val spoonacularScore: Int? = null,
 	val pricePerServing: Double? = null,
 	val sourceName: String? = null,
-	val spoonacularSourceUrl: String? = null,
-	val license: String? = null
+	val originalId: Any? = null
 )
