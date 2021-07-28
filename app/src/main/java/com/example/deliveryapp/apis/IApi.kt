@@ -1,6 +1,6 @@
 package com.example.deliveryapp.apis
 
-import com.example.deliveryapp.models.ComplexResponse
+import com.example.deliveryapp.models.foods.ComplexResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

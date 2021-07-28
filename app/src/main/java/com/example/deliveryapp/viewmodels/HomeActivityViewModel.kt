@@ -7,8 +7,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.deliveryapp.apis.ApiClient
 import com.example.deliveryapp.apis.IApi
-import com.example.deliveryapp.models.ComplexResponse
-import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.models.foods.ComplexResponse
+import com.example.deliveryapp.models.foods.ResultsItem
 import com.example.deliveryapp.repositories.HomeDeliveryRepository
 import com.example.deliveryapp.utils.API_KEY
 import com.example.deliveryapp.utils.PAGE_SIZE

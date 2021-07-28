@@ -1,4 +1,4 @@
-package com.example.deliveryapp.models
+package com.example.deliveryapp.models.foods
 
 data class ComplexResponse(
 	val number: Int? = null,

@@ -1,11 +1,7 @@
 package com.example.deliveryapp.designs
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -25,11 +21,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
-import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.models.foods.ResultsItem
 import com.example.deliveryapp.utils.PAGE_SIZE
-import com.example.deliveryapp.utils.TAG
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -92,7 +86,7 @@ fun FoodList(
     modifier: Modifier = Modifier,
     recipes: List<ResultsItem?>?,
     viewModelProvider: HomeActivityViewModel,
-    page: Int
+    page: Int,
 ) {
 
     val listState = rememberLazyListState()
@@ -131,7 +125,7 @@ fun FoodList(
 @Composable
 fun RecipeCard(
     modifier: Modifier = Modifier,
-    recipe: ResultsItem?
+    recipe: ResultsItem?,
 ) {
 
     Card(

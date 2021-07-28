@@ -8,8 +8,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
@@ -23,18 +21,18 @@ fun MenuList(
     modifier: Modifier = Modifier,
     menuList: List<String>,
     viewModel: SelectedCategoryViewModel,
-    homeViewModel: HomeActivityViewModel
+    homeViewModel: HomeActivityViewModel,
 ) {
     LazyRow(modifier = modifier) {
 
-        itemsIndexed(items = menuList) { index, item ->
+        itemsIndexed(items = menuList) { _, item ->
 
             CardItem(
                 modifier = Modifier.padding(5.dp),
                 item = item,
                 selectedCategoryViewModel = viewModel,
                 homeActivityViewModel = homeViewModel,
-                selectedCategory = item
+                selectedCategory = item,
             )
 
         }

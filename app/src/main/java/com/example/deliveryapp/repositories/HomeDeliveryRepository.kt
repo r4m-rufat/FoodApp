@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.compose.runtime.MutableState
 import com.example.deliveryapp.apis.ApiClient
 import com.example.deliveryapp.apis.IApi
-import com.example.deliveryapp.models.ComplexResponse
-import com.example.deliveryapp.models.ResultsItem
+import com.example.deliveryapp.models.foods.ComplexResponse
+import com.example.deliveryapp.models.foods.ResultsItem
 import com.example.deliveryapp.utils.API_KEY
 import com.example.deliveryapp.utils.TAG
 import kotlinx.coroutines.Dispatchers.IO
@@ -33,7 +33,7 @@ class HomeDeliveryRepository {
      * @see IO Dispatcher
      */
 
-     suspend fun setDeliveryData(deliveryData: MutableState<List<ResultsItem?>?>,  query: String, offset: String) {
+     suspend fun setDeliveryData(deliveryData: MutableState<List<ResultsItem?>?>, query: String, offset: String) {
         withContext(IO) {
             deliveryDataSetup(deliveryData, query, offset)
         }

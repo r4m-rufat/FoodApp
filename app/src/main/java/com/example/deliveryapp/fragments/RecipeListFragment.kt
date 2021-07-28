@@ -1,4 +1,9 @@
 package com.example.deliveryapp.fragments
 
-class RecipeListFragment {
+import androidx.fragment.app.Fragment
+
+class RecipeListFragment: Fragment() {
+
+
+
 }
