@@ -5,18 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.deliveryapp.designs.RecipeDetail
 import com.example.deliveryapp.utils.convertors.convertHTMLToString
 import com.example.deliveryapp.viewmodels.RecipeFragmentViewModel
-import org.jsoup.Jsoup
 
 class RecipeFragment: Fragment() {
 
+    private var recipeViewModel: RecipeFragmentViewModel? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        recipeViewModel = ViewModelProvider(requireActivity()).get(RecipeFragmentViewModel::class.java)
+        arguments?.getInt("recipeID")?.let { id ->
+
+            recipeViewModel?.id?.value = id
+            recipeViewModel?.getRecipeDetailInfo()
+
+        }
     }
 
     override fun onCreateView(
@@ -25,27 +36,26 @@ class RecipeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val recipeViewModel = ViewModelProvider(requireActivity()).get(RecipeFragmentViewModel::class.java)
-        arguments?.getInt("recipeID")?.let { id ->
-
-            Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
-            recipeViewModel?.id?.value = id
-            recipeViewModel?.getRecipeDetailInfo()
-
-        }
-
         return ComposeView(requireContext()).apply {
 
             setContent {
 
-                recipeViewModel?.detailReceipt?.value.title?.let {
+                recipeViewModel?.detailReceipt?.value?.title?.let { title ->
 
-                    val title = recipeViewModel?.detailReceipt!!.value?.spoonacularScore
-                    val imageURL = recipeViewModel?.detailReceipt!!.value.image
-                    val recipeDescription = recipeViewModel?.detailReceipt!!.value.summary
-//                    val recipe = recipeDescription?.replace("\\<.*?\\>", "")
+                    val imageURL = recipeViewModel?.detailReceipt!!.value?.image
+                    val recipeDescription = recipeViewModel?.detailReceipt!!.value?.summary
                     val recipe = convertHTMLToString(recipeDescription!!)
-                    RecipeDetail(foodImage = imageURL, foodTitle = title.toString(), foodDescription = recipe)
+                    val time: String = when(val readyTime = recipeViewModel?.detailReceipt!!.value?.readyInMinutes) {
+                        1 -> "$readyTime minute"
+                        else -> "$readyTime minutes"
+                    }
+                    val healthScore = "Score: ${recipeViewModel?.detailReceipt!!.value?.healthScore}"
+                    RecipeDetail(modifier = Modifier.padding(horizontal = 10.dp),
+                        foodImage = imageURL,
+                        foodTitle = title,
+                        foodDescription = recipe,
+                        healthScore = healthScore,
+                        readyTime = time)
 
                 }
             }

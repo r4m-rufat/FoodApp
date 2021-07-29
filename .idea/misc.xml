@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/DeliveryApp/app/src/main/res/drawable/ic_health.xml" value="0.142" />
+        <entry key="..\:/DeliveryApp/app/src/main/res/drawable/ic_timer.xml" value="0.142" />
         <entry key="..\:/DeliveryApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
       </map>
     </option>

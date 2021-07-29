@@ -2,6 +2,7 @@ package com.example.deliveryapp.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.deliveryapp.models.receipes.RecipeResponse
@@ -10,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class RecipeFragmentViewModel : ViewModel() {
 
-    var detailReceipt: MutableState<RecipeResponse> = mutableStateOf(RecipeResponse())
+    var detailReceipt: MutableState<RecipeResponse?> = mutableStateOf(RecipeResponse())
 
     var id = mutableStateOf(-1)
 

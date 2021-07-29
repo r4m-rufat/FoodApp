@@ -2,7 +2,7 @@ package com.example.deliveryapp.models.receipes
 
 data class ExtendedIngredientsItem(
 	val image: String? = null,
-	val amount: Int? = null,
+	val amount: Double? = null,
 	val nameClean: String? = null,
 	val original: String? = null,
 	val aisle: String? = null,

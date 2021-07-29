@@ -29,7 +29,9 @@ class RecipeDetailRepository {
 
     }
 
-    fun getRecipeInformation(recipeData: MutableState<RecipeResponse>, id: Int){
+    fun getRecipeInformation(recipeData: MutableState<RecipeResponse?>, id: Int){
+
+        recipeData.value = null // because data must refresh
 
         CoroutineScope(IO).launch {
             val apiCall = ApiClient.getRetrofit()!!.create(IApi::class.java)!!.getRecipeInformation(id = id, boolean = false, API_KEY)
@@ -41,7 +43,6 @@ class RecipeDetailRepository {
                 ) {
 
                     if (response.isSuccessful){
-
                         recipeData.value = response.body()!!
                         Log.d(TAG, "onResponse: Recipe successfully comes")
 
