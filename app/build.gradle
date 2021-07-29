@@ -76,4 +76,7 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
+    // TODO Jsoup
+    implementation 'org.jsoup:jsoup:1.14.1'
+
 }

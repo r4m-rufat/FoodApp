@@ -1,7 +1,7 @@
 package com.example.deliveryapp.apis
 
 import com.example.deliveryapp.models.foods.ComplexResponse
-import com.example.deliveryapp.models.receipes.ReciepeResponse
+import com.example.deliveryapp.models.receipes.RecipeResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,11 +16,11 @@ interface IApi {
         @Query("apiKey") apiKey: String
     ): Call<ComplexResponse>
 
-    @GET("{id}information?")
+    @GET("{id}/information?")
     fun getRecipeInformation(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Query("includeNutrition") boolean: Boolean,
         @Query("apiKey") apiKey: String
-    ): Call<ReciepeResponse>
+    ): Call<RecipeResponse>
 
 }

@@ -1,6 +1,6 @@
 package com.example.deliveryapp.models.receipes
 
-data class ReciepeResponse(
+data class RecipeResponse(
 	val instructions: String? = null,
 	val sustainable: Boolean? = null,
 	val analyzedInstructions: List<AnalyzedInstructionsItem?>? = null,

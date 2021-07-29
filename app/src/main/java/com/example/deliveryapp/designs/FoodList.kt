@@ -21,6 +21,7 @@ fun FoodList(
     recipes: List<ResultsItem?>?,
     viewModelProvider: HomeActivityViewModel,
     page: Int,
+    onCLickItem: (index: Int) -> Unit
 ) {
 
     val listState = rememberLazyListState()
@@ -37,16 +38,14 @@ fun FoodList(
             /**
              * pagination statement
              */
-
-            /**
-             * pagination statement
-             */
             if ((index + 1) >= (page * PAGE_SIZE)) {
 
                 viewModelProvider.nextRecipePage()
 
             }
-            RecipeCard(recipe = item, modifier = Modifier.padding(vertical = 10.dp))
+            RecipeCard(recipe = item, modifier = Modifier.padding(vertical = 10.dp), onClickCard = {
+                onCLickItem(it)
+            })
 
         }
 

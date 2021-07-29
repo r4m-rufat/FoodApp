@@ -10,6 +10,8 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import com.example.deliveryapp.R
 import com.example.deliveryapp.designs.FoodList
 import com.example.deliveryapp.designs.MenuList
 import com.example.deliveryapp.designs.TextFieldDesign
@@ -18,7 +20,7 @@ import com.example.deliveryapp.utils.recipe_list.getAllFoodCategoriesValue
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
 import com.example.deliveryapp.viewmodels.SelectedCategoryViewModel
 
-class RecipeListFragment: Fragment() {
+class RecipeListFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +29,8 @@ class RecipeListFragment: Fragment() {
     ): View? {
         return ComposeView(requireContext()).apply {
 
-            var viewModelProvider = ViewModelProvider(requireActivity()).get(HomeActivityViewModel::class.java)
+            var viewModelProvider =
+                ViewModelProvider(requireActivity()).get(HomeActivityViewModel::class.java)
             var selectedCategoryViewModel =
                 ViewModelProvider(requireActivity()).get(SelectedCategoryViewModel::class.java)
             viewModelProvider.query.value = selectedCategoryViewModel.selectedCategory.value
@@ -58,12 +61,17 @@ class RecipeListFragment: Fragment() {
                         val page = viewModelProvider.page.value
 
                         deliveryList?.let { recipes ->
-
                             FoodList(
                                 recipes = recipes,
                                 modifier = Modifier.padding(horizontal = 10.dp),
                                 page = page,
-                                viewModelProvider = viewModelProvider)
+                                viewModelProvider = viewModelProvider,
+                                onCLickItem = { recipeID ->
+                                    val bundle = Bundle()
+                                    bundle.putInt("recipeID", recipeID)
+                                    findNavController().navigate(R.id.viewRecipeDetail, bundle)
+                                }
+                            )
                         }
 
                     }

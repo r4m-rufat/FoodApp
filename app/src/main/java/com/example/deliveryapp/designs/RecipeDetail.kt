@@ -15,16 +15,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.deliveryapp.R
 
 @Composable
 fun RecipeDetail(
     modifier: Modifier = Modifier,
-    foodImage: String,
-    foodTitle: String,
-    foodDescription: String
+    foodImage: String? = null,
+    foodTitle: String? = null,
+    foodDescription: String? = null
 ) {
 
     val scrollState = rememberScrollState()
@@ -48,7 +50,7 @@ fun RecipeDetail(
             ) {
 
                 Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_background),
+                    painter = rememberImagePainter(data = foodImage),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -65,10 +67,10 @@ fun RecipeDetail(
                         )
                         .border(2.dp, Color(0xFFF8C00))
                         .padding(horizontal = 30.dp, vertical = 6.dp),
-                    text = foodTitle,
+                    text = foodTitle!!,
                     fontWeight = FontWeight.SemiBold,
                     color = Color.Black,
-                    fontSize = 20.sp
+                    fontSize = 20.sp,
                 )
 
 
@@ -85,10 +87,11 @@ fun RecipeDetail(
         )
 
         Text(
-            text = foodDescription,
+            text = foodDescription!!,
             modifier = Modifier.padding(vertical = 10.dp),
             fontSize = 14.sp,
-            color = Color.Black
+            color = Color.Black,
+            lineHeight = 20.sp
         )
 
 
