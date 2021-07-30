@@ -40,7 +40,7 @@ class RecipeListFragment : Fragment() {
 
                     Column(modifier = Modifier.fillMaxSize()) {
 
-                        TextFieldDesign(onClick = { text, scrollPosition ->
+                        TextFieldDesign(onClick = { text, _ ->
                             viewModelProvider.query.value = text
                             viewModelProvider.resetSearchState()
                         })

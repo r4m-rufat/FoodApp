@@ -36,7 +36,7 @@ class RecipeDetailRepository {
         CoroutineScope(IO).launch {
             val apiCall = ApiClient.getRetrofit()!!.create(IApi::class.java)!!.getRecipeInformation(id = id, boolean = false, API_KEY)
 
-            apiCall!!.enqueue(object : Callback<RecipeResponse>{
+            apiCall.enqueue(object : Callback<RecipeResponse>{
                 override fun onResponse(
                     call: Call<RecipeResponse>,
                     response: Response<RecipeResponse>

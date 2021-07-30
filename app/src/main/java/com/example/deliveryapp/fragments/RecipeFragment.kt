@@ -50,7 +50,7 @@ class RecipeFragment: Fragment() {
                         else -> "$readyTime minutes"
                     }
                     val healthScore = "Score: ${recipeViewModel?.detailReceipt!!.value?.healthScore}"
-                    RecipeDetail(modifier = Modifier.padding(horizontal = 10.dp),
+                    RecipeDetail(modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
                         foodImage = imageURL,
                         foodTitle = title,
                         foodDescription = recipe,

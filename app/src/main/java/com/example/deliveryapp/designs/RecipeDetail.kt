@@ -1,5 +1,6 @@
 package com.example.deliveryapp.designs
 
+import android.widget.Space
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -40,15 +41,6 @@ fun RecipeDetail(
             .verticalScroll(scrollState)
     ) {
 
-        Text(
-            text = foodTitle!!,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.Black,
-            fontSize = 20.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp)
-        )
-
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = 5.dp,
@@ -74,6 +66,15 @@ fun RecipeDetail(
             }
 
         }
+
+        Text(
+            text = foodTitle!!,
+            color = Color.Black,
+            fontSize = 18.sp,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp),
+            fontWeight = FontWeight.Bold
+        )
 
         Row(
             modifier = Modifier
@@ -139,6 +140,13 @@ fun RecipeDetail(
 
         )
 
+        SimilarFoodsWord()
+        
+        Spacer(modifier = Modifier.height(12.dp))
+
+        SimilarFoodsList()
+
+        Spacer(modifier = Modifier.height(20.dp))
 
     }
 
@@ -163,20 +171,10 @@ fun Preview() {
                 .verticalScroll(scrollState)
         ) {
 
-            Text(
-                text = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
-                fontWeight = FontWeight.SemiBold,
-                color = Color.Black,
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp)
-            )
-
             Card(
                 modifier = Modifier.fillMaxWidth(),
-                elevation = 5.dp,
-                shape = RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp),
-                border = BorderStroke(2.dp, Color(0xFFFBF00))
+                elevation = 8.dp,
+                shape = RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp)
             ) {
 
                 Box(
@@ -199,6 +197,14 @@ fun Preview() {
                 }
 
             }
+
+            Text(
+                text = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
+                color = Color.Black,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp)
+            )
 
             Row(
                 modifier = Modifier

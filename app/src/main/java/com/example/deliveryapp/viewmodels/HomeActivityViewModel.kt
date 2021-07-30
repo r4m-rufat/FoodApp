@@ -45,7 +45,7 @@ class HomeActivityViewModel : ViewModel() {
     private fun appendRecipesToRecipeList(recipes: List<ResultsItem?>?){
 
         val currentList = ArrayList(deliveryList.value)
-        recipes?.let {recipes ->
+        recipes?.let { recipes ->
             currentList.addAll(recipes)
         }
         deliveryList.value = currentList
