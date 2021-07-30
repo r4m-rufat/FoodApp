@@ -1,6 +1,5 @@
 package com.example.deliveryapp.designs
 
-import android.widget.Space
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -23,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.R
+import com.example.deliveryapp.models.foods.ResultsItem
 
 @Composable
 fun RecipeDetail(
@@ -31,7 +31,8 @@ fun RecipeDetail(
     foodTitle: String? = null,
     foodDescription: String? = null,
     readyTime: String? = null,
-    healthScore: String? = null
+    healthScore: String? = null,
+    list: List<ResultsItem?>
 ) {
 
     val scrollState = rememberScrollState()
@@ -144,7 +145,7 @@ fun RecipeDetail(
         
         Spacer(modifier = Modifier.height(12.dp))
 
-        SimilarFoodsList()
+        SimilarFoodsList(modifier = Modifier.fillMaxWidth(), foodsList = list)
 
         Spacer(modifier = Modifier.height(20.dp))
 

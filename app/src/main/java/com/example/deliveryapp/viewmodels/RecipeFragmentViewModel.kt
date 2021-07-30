@@ -2,16 +2,18 @@ package com.example.deliveryapp.viewmodels
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.deliveryapp.models.receipes.RecipeResponse
+import com.example.deliveryapp.models.recommended_foods.RecommendedResponse
 import com.example.deliveryapp.repositories.RecipeDetailRepository
+import com.example.deliveryapp.repositories.RecommendedFoodsRepository
 import kotlinx.coroutines.launch
 
 class RecipeFragmentViewModel : ViewModel() {
 
     var detailReceipt: MutableState<RecipeResponse?> = mutableStateOf(RecipeResponse())
+    var recommendedFoods: MutableState<RecommendedResponse?> = mutableStateOf(RecommendedResponse())
 
     var id = mutableStateOf(-1)
 
@@ -22,6 +24,16 @@ class RecipeFragmentViewModel : ViewModel() {
             RecipeDetailRepository.instanceOf()!!.getRecipeInformation(detailReceipt, id.value)
 
         }
+    }
+
+    fun getRecommendedFoodsInfo(){
+
+        viewModelScope.launch {
+
+            RecommendedFoodsRepository.instanceOf()?.getSimilarFoodsData(recommendedFoods)
+
+        }
+
     }
 
 }

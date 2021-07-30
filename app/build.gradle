@@ -79,5 +79,4 @@ dependencies {
     // TODO Jsoup
     implementation 'org.jsoup:jsoup:1.14.1'
 
-
 }

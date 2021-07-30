@@ -1,6 +1,5 @@
 package com.example.deliveryapp.designs
 
-import android.widget.RatingBar
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -10,6 +9,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -18,10 +18,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.deliveryapp.R
 
 @Composable
-fun SimilarFoodCard() {
+fun RecommendedFoodCard(
+    imageUrl: String,
+    title: String
+) {
 
     Card(
         modifier = Modifier
@@ -36,14 +40,16 @@ fun SimilarFoodCard() {
 
         Column(modifier = Modifier.fillMaxWidth()) {
             Image(
-                painter = painterResource(id = R.drawable.meal),
+                painter = rememberImagePainter(data = imageUrl),
                 contentDescription = null,
-                modifier = Modifier.size(150.dp),
+                modifier = Modifier
+                    .size(150.dp)
+                    .scale(scaleX = 1.05f, scaleY = 1f),
                 contentScale = ContentScale.Crop
             )
 
             Text(
-                text = "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs",
+                text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 fontSize = 14.sp,

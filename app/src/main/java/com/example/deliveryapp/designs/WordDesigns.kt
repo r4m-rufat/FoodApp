@@ -17,21 +17,21 @@ fun SimilarFoodsWord() {
 
         withStyle(
             style = SpanStyle(
-                color = Color(0xFFFFDE07),
+                color = Color(0xFF33C000),
                 fontWeight = FontWeight.ExtraBold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 24.sp
             )
         ) {
 
-            append("S")
+            append("H")
         }
 
-        append("imilar  ")
+        append("ealthy  ")
 
         withStyle(
             style = SpanStyle(
-                color = Color(0xFFFFDE07),
+                color = Color(0xFF33C000),
                 fontWeight = FontWeight.ExtraBold,
                 fontStyle = FontStyle.Italic,
                 fontSize = 24.sp
