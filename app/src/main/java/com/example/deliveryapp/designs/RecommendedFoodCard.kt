@@ -6,8 +6,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
@@ -24,8 +26,20 @@ import com.example.deliveryapp.R
 @Composable
 fun RecommendedFoodCard(
     imageUrl: String,
-    title: String
+    title: String,
+    rating: String,
+    readyTime: String
 ) {
+
+    val colors = arrayOf(
+        Color(0xFF17C5B1),
+        Color(0xFF609756),
+        Color(0xFF9C9045),
+        Color(0xFFCC5032),
+        Color(0xFF526CAF),
+        Color(0xFF946BA3),
+        Color(0xFFC54B56)
+    )
 
     Card(
         modifier = Modifier
@@ -38,7 +52,11 @@ fun RecommendedFoodCard(
         border = BorderStroke(1.5.dp, Color(0xFFE7C100))
     ) {
 
-        Column(modifier = Modifier.fillMaxWidth()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(colors.random())
+        ) {
             Image(
                 painter = rememberImagePainter(data = imageUrl),
                 contentDescription = null,
@@ -54,12 +72,60 @@ fun RecommendedFoodCard(
                 overflow = TextOverflow.Ellipsis,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                color = Color.White,
                 modifier = Modifier.padding(
-                    horizontal = 8.dp,
-                    vertical = 5.dp
+                    top = 5.dp,
+                    bottom = 0.dp,
+                    end = 8.dp,
+                    start = 8.dp
                 )
             )
+
+            Row(
+                modifier = Modifier
+                    .padding(
+                        horizontal = 8.dp
+                    )
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_star),
+                        contentDescription = null,
+                        tint = Color(0xFFFFC600)
+                    )
+
+                    Text(
+                        text = "$rating%",
+                        fontSize = 14.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                }
+
+                Row(verticalAlignment = Alignment.CenterVertically) {
+
+                    Icon(
+                        painter = painterResource(id = R.drawable.ic_timer),
+                        contentDescription = null,
+                        tint = Color(0xFFFFC600)
+                    )
+
+                    Text(
+                        text = readyTime,
+                        fontSize = 14.sp,
+                        color = Color.White,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                }
+
+            }
 
 
         }
@@ -90,7 +156,9 @@ fun Test() {
             border = BorderStroke(2.dp, Color.Gray)
         ) {
 
-            Column(modifier = Modifier.fillMaxWidth()) {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .background(Color(0xFFC54B56))) {
                 Image(
                     painter = painterResource(id = R.drawable.meal),
                     contentDescription = null,
@@ -104,12 +172,60 @@ fun Test() {
                     overflow = TextOverflow.Ellipsis,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.Black,
+                    color = Color.White,
                     modifier = Modifier.padding(
-                        horizontal = 8.dp,
-                        vertical = 5.dp
+                        top = 5.dp,
+                        bottom = 0.dp,
+                        end = 8.dp,
+                        start = 8.dp
                     )
                 )
+
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            horizontal = 8.dp
+                        )
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_star),
+                            contentDescription = null,
+                            tint = Color(0xFFFFC600)
+                        )
+
+                        Text(
+                            text = "90%",
+                            fontSize = 14.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold
+                        )
+
+                    }
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_timer),
+                            contentDescription = null,
+                            tint = Color(0xFFFFC600)
+                        )
+
+                        Text(
+                            text = "45",
+                            fontSize = 14.sp,
+                            color = Color.White,
+                            fontWeight = FontWeight.SemiBold
+                        )
+
+                    }
+
+                }
 
             }
 

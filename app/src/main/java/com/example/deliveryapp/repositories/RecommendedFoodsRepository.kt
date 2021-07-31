@@ -1,5 +1,6 @@
 package com.example.deliveryapp.repositories
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.runtime.MutableState
 import com.example.deliveryapp.apis.ApiClient
@@ -15,7 +16,7 @@ import retrofit2.Response
 
 class RecommendedFoodsRepository {
 
-    private val TAG = "SimilarFoodsRepository"
+    private val TAG = "RecommendedFoodsRepository"
     private val query: String = "Healthy"
 
     companion object{
@@ -40,6 +41,7 @@ class RecommendedFoodsRepository {
             val apiCall = ApiClient.getRetrofit()?.create(IApi::class.java)?.getRecommendedFoods(query = query, 1, 20, API_KEY)
 
             apiCall?.enqueue(object : Callback<RecommendedResponse> {
+                @SuppressLint("LongLogTag")
                 override fun onResponse(
                     call: Call<RecommendedResponse?>,
                     response: Response<RecommendedResponse?>
@@ -47,9 +49,11 @@ class RecommendedFoodsRepository {
                     if (response.isSuccessful){
                         similarList.value = response.body()
                         Log.d(TAG, "onResponse: Healthy foods successfully comes")
+                        Log.d(TAG, "onResponse: Item -> ${response.body()?.results?.get(0)?.image}")
                     }
                 }
 
+                @SuppressLint("LongLogTag")
                 override fun onFailure(call: Call<RecommendedResponse?>, t: Throwable) {
                     Log.d(TAG, "onFailure: Data doesn't come. Reason: ${t.message}")
                 }

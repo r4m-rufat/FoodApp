@@ -24,10 +24,10 @@ fun SimilarFoodsWord() {
             )
         ) {
 
-            append("H")
+            append("R")
         }
 
-        append("ealthy  ")
+        append("ecommended  ")
 
         withStyle(
             style = SpanStyle(

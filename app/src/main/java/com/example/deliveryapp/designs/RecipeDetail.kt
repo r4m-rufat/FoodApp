@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.R
-import com.example.deliveryapp.models.foods.ResultsItem
+import com.example.deliveryapp.models.recommended_foods.ResultsItem
 
 @Composable
 fun RecipeDetail(

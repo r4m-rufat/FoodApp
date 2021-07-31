@@ -5,7 +5,9 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.example.deliveryapp.models.foods.ResultsItem
+import com.example.deliveryapp.default_data.getDefaultRatingList
+import com.example.deliveryapp.default_data.getDefaultReadyTimeList
+import com.example.deliveryapp.models.recommended_foods.ResultsItem
 
 @Composable
 fun SimilarFoodsList(
@@ -14,12 +16,19 @@ fun SimilarFoodsList(
 ) {
 
     val state = rememberLazyListState()
+    val readyTimeList = getDefaultReadyTimeList()
+    val ratingList = getDefaultRatingList()
 
     LazyRow(modifier = modifier, state = state) {
 
         itemsIndexed(items = foodsList) { index, item ->
 
-            RecommendedFoodCard(imageUrl = foodsList[index]?.image!!, title = foodsList[index]?.title!!)
+            RecommendedFoodCard(
+                imageUrl = item?.image!!,
+                title = item.title!!,
+                readyTime = readyTimeList[index].toString(),
+                rating = ratingList[index].toString()
+            )
 
         }
 
