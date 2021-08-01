@@ -3,6 +3,7 @@ package com.example.deliveryapp.designs
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -22,13 +23,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.deliveryapp.R
+import com.example.deliveryapp.models.recommended_foods.ResultsItem
 
 @Composable
 fun RecommendedFoodCard(
-    imageUrl: String,
-    title: String,
+    recommendedRecipes: ResultsItem?,
     rating: String,
-    readyTime: String
+    readyTime: String,
+    onCLick: (id: Int) -> Unit
 ) {
 
     val colors = arrayOf(
@@ -46,10 +48,16 @@ fun RecommendedFoodCard(
             .padding(end = 20.dp)
             .width(150.dp)
             .height(200.dp)
-            .background(Color.White),
+            .background(Color.White)
+            .clickable(
+                enabled = true,
+                onClick = {
+                    onCLick(recommendedRecipes?.id!!)
+                }
+            ),
         elevation = 5.dp,
         shape = RoundedCornerShape(15.dp),
-        border = BorderStroke(1.5.dp, Color(0xFFE7C100))
+        border = BorderStroke(1.5.dp, Color(0xFF00E7E7))
     ) {
 
         Column(
@@ -58,7 +66,7 @@ fun RecommendedFoodCard(
                 .background(colors.random())
         ) {
             Image(
-                painter = rememberImagePainter(data = imageUrl),
+                painter = rememberImagePainter(data = recommendedRecipes?.image),
                 contentDescription = null,
                 modifier = Modifier
                     .size(150.dp)
@@ -66,20 +74,22 @@ fun RecommendedFoodCard(
                 contentScale = ContentScale.Crop
             )
 
-            Text(
-                text = title,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                modifier = Modifier.padding(
-                    top = 5.dp,
-                    bottom = 0.dp,
-                    end = 8.dp,
-                    start = 8.dp
+            recommendedRecipes?.title?.let {
+                Text(
+                    text = it,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    modifier = Modifier.padding(
+                        top = 5.dp,
+                        bottom = 0.dp,
+                        end = 8.dp,
+                        start = 8.dp
+                    )
                 )
-            )
+            }
 
             Row(
                 modifier = Modifier

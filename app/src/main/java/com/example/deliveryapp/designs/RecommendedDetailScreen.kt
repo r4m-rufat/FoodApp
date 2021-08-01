@@ -20,15 +20,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
+import com.example.deliveryapp.models.receipes.RecipeResponse
+import com.example.deliveryapp.utils.checkMinuteTextSinPul
+import com.example.deliveryapp.utils.convertors.convertHTMLToString
 
 @Composable
 fun RecommendedDetailScreen(
     modifier: Modifier = Modifier,
-    foodImage: String? = null,
-    foodTitle: String? = null,
-    foodDescription: String? = null,
-    readyTime: String? = null,
-    healthScore: String? = null,
+    recipe: RecipeResponse,
 ) {
 
     val scrollState = rememberScrollState()
@@ -56,7 +55,7 @@ fun RecommendedDetailScreen(
             ) {
 
                 Image(
-                    painter = rememberImagePainter(data = foodImage),
+                    painter = rememberImagePainter(data = recipe.image),
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
@@ -68,21 +67,23 @@ fun RecommendedDetailScreen(
         }
 
         Text(
-            text = foodTitle!!,
+            text = recipe.title!!,
             color = Color.Black,
             fontSize = 18.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.padding(
-                vertical = 10.dp,
-                horizontal = 30.dp
-            ),
+            modifier = Modifier
+                .padding(
+                    vertical = 10.dp,
+                    horizontal = 30.dp
+                )
+                .fillMaxWidth(),
             fontWeight = FontWeight.Bold
         )
 
         RecipeHealthTimeContainer(
-            healthScore = healthScore!!,
-            readyTime = readyTime!!,
-            modifier = modifier
+            healthScore = "Score: ${recipe.healthScore}",
+            readyTime = checkMinuteTextSinPul(recipe.readyInMinutes!!),
+            modifier = Modifier.fillMaxWidth()
         )
 
         Text(
@@ -97,7 +98,7 @@ fun RecommendedDetailScreen(
         )
 
         Text(
-            text = foodDescription!!,
+            text = convertHTMLToString(recipe.summary!!),
             modifier = Modifier.padding(
                 top = 10.dp,
                 bottom = 20.dp

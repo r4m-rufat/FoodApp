@@ -10,9 +10,10 @@ import com.example.deliveryapp.default_data.getDefaultReadyTimeList
 import com.example.deliveryapp.models.recommended_foods.ResultsItem
 
 @Composable
-fun SimilarFoodsList(
+fun RecommendedFoodsList(
     modifier: Modifier,
-    foodsList: List<ResultsItem?>
+    foodsList: List<ResultsItem?>,
+    onClickItem: (index: Int) -> Unit
 ) {
 
     val state = rememberLazyListState()
@@ -24,10 +25,12 @@ fun SimilarFoodsList(
         itemsIndexed(items = foodsList) { index, item ->
 
             RecommendedFoodCard(
-                imageUrl = item?.image!!,
-                title = item.title!!,
+                item,
                 readyTime = readyTimeList[index].toString(),
-                rating = ratingList[index].toString()
+                rating = ratingList[index].toString(),
+                onCLick = {  id ->
+                    onClickItem(id)
+                }
             )
 
         }

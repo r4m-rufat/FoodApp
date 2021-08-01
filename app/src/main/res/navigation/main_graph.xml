@@ -18,6 +18,17 @@
     <fragment
         android:id="@+id/recipeFragment"
         android:label="RecipeFragment"
-        android:name="com.example.deliveryapp.fragments.RecipeFragment"/>
+        android:name="com.example.deliveryapp.fragments.RecipeFragment">
+
+        <action
+            android:id="@+id/viewRecommendedFoodDetail"
+            app:destination="@+id/recommendedFoodFragment"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/recommendedFoodFragment"
+        android:name="com.example.deliveryapp.fragments.RecommendedRecipeDetailFragment"
+        android:label="RecommendedFoodFragment"/>
 
 </navigation>

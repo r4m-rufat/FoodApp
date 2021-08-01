@@ -11,7 +11,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun SimilarFoodsWord() {
+fun RecommendedFoodsWord() {
 
     Text(text = buildAnnotatedString {
 

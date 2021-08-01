@@ -10,6 +10,8 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.deliveryapp.R
 import com.example.deliveryapp.designs.RecipeDetail
 import com.example.deliveryapp.utils.convertors.convertHTMLToString
 import com.example.deliveryapp.viewmodels.RecipeFragmentViewModel
@@ -57,15 +59,19 @@ class RecipeFragment : Fragment() {
                     recipeViewModel?.recommendedFoods?.value?.results?.let { healthyFoodList ->
 
                         RecipeDetail(
-                            modifier = Modifier.
-                            padding(horizontal = 10.dp, vertical = 10.dp),
+                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
                             foodImage = imageURL,
                             foodTitle = title,
                             foodDescription = recipe,
                             healthScore = healthScore,
                             readyTime = time,
-                            list = healthyFoodList
-                            )
+                            list = healthyFoodList,
+                            onCLickCard = { ID ->
+                                val bundle = Bundle()
+                                bundle.putInt("recID", ID)
+                                findNavController().navigate(R.id.viewRecommendedFoodDetail, bundle)
+                            }
+                        )
 
                     }
                 }

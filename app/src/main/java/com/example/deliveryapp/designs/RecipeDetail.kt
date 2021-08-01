@@ -32,7 +32,8 @@ fun RecipeDetail(
     foodDescription: String? = null,
     readyTime: String? = null,
     healthScore: String? = null,
-    list: List<ResultsItem?>
+    list: List<ResultsItem?>,
+    onCLickCard: (id: Int) -> Unit
 ) {
 
     val scrollState = rememberScrollState()
@@ -80,7 +81,7 @@ fun RecipeDetail(
         RecipeHealthTimeContainer(
             healthScore = healthScore!!,
             readyTime = readyTime!!,
-            modifier = modifier
+            modifier = Modifier.fillMaxWidth()
         )
 
         Text(
@@ -100,11 +101,13 @@ fun RecipeDetail(
             lineHeight = 20.sp,
             )
 
-        SimilarFoodsWord()
+        RecommendedFoodsWord()
 
         Spacer(modifier = Modifier.height(12.dp))
 
-        SimilarFoodsList(modifier = Modifier.fillMaxWidth(), foodsList = list)
+        RecommendedFoodsList(modifier = Modifier.fillMaxWidth(), foodsList = list, onClickItem = { id ->
+            onCLickCard(id)
+        })
 
         Spacer(modifier = Modifier.height(20.dp))
 
