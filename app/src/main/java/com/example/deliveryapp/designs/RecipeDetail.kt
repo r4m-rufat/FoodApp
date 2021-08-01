@@ -77,51 +77,11 @@ fun RecipeDetail(
             fontWeight = FontWeight.Bold
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 10.dp),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_timer),
-                    contentDescription = null,
-                    tint = Color(0xFFFFDD00),
-                    modifier = Modifier.size(30.dp)
-                )
-                Text(
-                    text = readyTime!!,
-                    fontSize = 14.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-
-            }
-
-            Row(verticalAlignment = Alignment.CenterVertically) {
-
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_health),
-                    contentDescription = null,
-                    tint = Color(0xFF2B9F02),
-                    modifier = Modifier.size(30.dp)
-                )
-                Text(
-                    text = healthScore!!,
-                    fontSize = 14.sp,
-                    color = Color.Black,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-
-            }
-
-        }
+        RecipeHealthTimeContainer(
+            healthScore = healthScore!!,
+            readyTime = readyTime!!,
+            modifier = modifier
+        )
 
         Text(
             text = "Receipt",
@@ -138,11 +98,10 @@ fun RecipeDetail(
             fontSize = 14.sp,
             color = Color.Black,
             lineHeight = 20.sp,
-
-        )
+            )
 
         SimilarFoodsWord()
-        
+
         Spacer(modifier = Modifier.height(12.dp))
 
         SimilarFoodsList(modifier = Modifier.fillMaxWidth(), foodsList = list)
