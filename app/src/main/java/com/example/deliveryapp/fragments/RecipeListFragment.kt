@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import com.example.deliveryapp.R
 import com.example.deliveryapp.designs.FoodList
 import com.example.deliveryapp.designs.MenuList
 import com.example.deliveryapp.designs.TextFieldDesign
+import com.example.deliveryapp.designs.TopAppBar
 import com.example.deliveryapp.ui.theme.DeliveryAppTheme
 import com.example.deliveryapp.utils.recipe_list.getAllFoodCategoriesValue
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
@@ -39,6 +41,12 @@ class RecipeListFragment : Fragment() {
                 DeliveryAppTheme {
 
                     Column(modifier = Modifier.fillMaxSize()) {
+
+                        TopAppBar(
+                            title = "Zardab Foods",
+                            icon = painterResource(id = R.drawable.icon),
+                            isMenuOn = true
+                        )
 
                         TextFieldDesign(onClick = { text, _ ->
                             viewModelProvider.query.value = text

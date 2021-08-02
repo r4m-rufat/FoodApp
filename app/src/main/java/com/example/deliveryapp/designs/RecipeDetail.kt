@@ -39,77 +39,100 @@ fun RecipeDetail(
     val scrollState = rememberScrollState()
 
     Column(
-        modifier = modifier
-            .verticalScroll(scrollState)
+        modifier = Modifier
+            .fillMaxWidth()
     ) {
 
-        Card(
-            modifier = Modifier.fillMaxWidth(),
-            elevation = 5.dp,
-            shape = RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp),
-            border = BorderStroke(2.dp, Color(0xFFFBF00))
+        TopAppBar(
+            title = "Recipe Detail",
+            icon = painterResource(id = R.drawable.icon),
+            isMenuOn = false
+        )
+
+        Column(
+            modifier = modifier
+                .verticalScroll(scrollState)
         ) {
 
-            Box(
+            Card(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(250.dp),
-                contentAlignment = Alignment.BottomEnd
+                    .padding(top = 10.dp),
+                elevation = 5.dp,
+                shape = RoundedCornerShape(topEnd = 10.dp, topStart = 10.dp),
+                border = BorderStroke(2.dp, Color(0xFFFBF00))
             ) {
 
-                Image(
-                    painter = rememberImagePainter(data = foodImage),
-                    contentDescription = null,
+                Box(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .scale(scaleX = 1.1f, scaleY = 1f),
-                    contentScale = ContentScale.Crop
-                )
+                        .fillMaxWidth()
+                        .height(250.dp),
+                    contentAlignment = Alignment.BottomEnd
+                ) {
+
+                    Image(
+                        painter = rememberImagePainter(data = foodImage),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .scale(scaleX = 1.1f, scaleY = 1f),
+                        contentScale = ContentScale.Crop
+                    )
+                }
+
             }
 
-        }
-
-        Text(
-            text = foodTitle!!,
-            color = Color.Black,
-            fontSize = 18.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.padding(vertical = 10.dp, horizontal = 30.dp),
-            fontWeight = FontWeight.Bold
-        )
-
-        RecipeHealthTimeContainer(
-            healthScore = healthScore!!,
-            readyTime = readyTime!!,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Text(
-            text = "Receipt",
-            modifier = Modifier.padding(top = 24.dp),
-            fontSize = 18.sp,
-            fontWeight = FontWeight.SemiBold,
-            color = Color.Black,
-            fontStyle = FontStyle.Italic
-        )
-
-        Text(
-            text = foodDescription!!,
-            modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
-            fontSize = 14.sp,
-            color = Color.Black,
-            lineHeight = 20.sp,
+            Text(
+                text = foodTitle!!,
+                color = Color.Black,
+                fontSize = 18.sp,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(
+                        vertical = 10.dp,
+                        horizontal = 30.dp
+                    )
+                    .fillMaxWidth(),
+                fontWeight = FontWeight.Bold
             )
 
-        RecommendedFoodsWord()
+            RecipeHealthTimeContainer(
+                healthScore = healthScore!!,
+                readyTime = readyTime!!,
+                modifier = Modifier.fillMaxWidth()
+            )
 
-        Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = "Receipt",
+                modifier = Modifier.padding(top = 24.dp),
+                fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.Black,
+                fontStyle = FontStyle.Italic
+            )
 
-        RecommendedFoodsList(modifier = Modifier.fillMaxWidth(), foodsList = list, onClickItem = { id ->
-            onCLickCard(id)
-        })
+            Text(
+                text = foodDescription!!,
+                modifier = Modifier.padding(top = 10.dp, bottom = 20.dp),
+                fontSize = 14.sp,
+                color = Color.Black,
+                lineHeight = 20.sp,
+            )
 
-        Spacer(modifier = Modifier.height(20.dp))
+            RecommendedFoodsWord()
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            RecommendedFoodsList(
+                modifier = Modifier.fillMaxWidth(),
+                foodsList = list,
+                onClickItem = { id ->
+                    onCLickCard(id)
+                })
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+        }
 
     }
 

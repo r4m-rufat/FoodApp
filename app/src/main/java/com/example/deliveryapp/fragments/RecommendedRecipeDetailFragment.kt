@@ -44,7 +44,7 @@ class RecommendedRecipeDetailFragment : Fragment() {
                     RecommendedDetailScreen(
                         recipe = recipeResponse,
                         modifier = Modifier
-                            .padding(10.dp)
+                            .padding(horizontal = 10.dp)
                             .fillMaxWidth()
                     )
 

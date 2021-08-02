@@ -39,7 +39,13 @@ fun TextFieldDesign(
                 .weight(7f)
                 .padding(horizontal = 10.dp)
                 .height(60.dp),
-            textStyle = TextStyle(fontSize = 18.sp)
+            textStyle = TextStyle(fontSize = 18.sp),
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.Green,
+                unfocusedBorderColor = Color(0xFFFFBF00),
+                unfocusedLabelColor = Color(0xFFFFBF00),
+                focusedLabelColor = Color.Green,
+            )
         )
 
         OutlinedButton(
@@ -50,9 +56,8 @@ fun TextFieldDesign(
                 .weight(3f)
                 .padding(end = 10.dp)
                 .height(52.dp)
-                .clip(RoundedCornerShape(10.dp))
-                .border(2.dp, Color.Cyan, RoundedCornerShape(10.dp)),
-            colors = ButtonDefaults.buttonColors(Color.Blue)
+                .clip(RoundedCornerShape(10.dp)),
+            colors = ButtonDefaults.buttonColors(Color(0xFFFFBF00))
         ) {
 
             Text(

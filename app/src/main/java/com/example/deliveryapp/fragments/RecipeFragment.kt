@@ -59,7 +59,7 @@ class RecipeFragment : Fragment() {
                     recipeViewModel?.recommendedFoods?.value?.results?.let { healthyFoodList ->
 
                         RecipeDetail(
-                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 10.dp),
+                            modifier = Modifier.padding(horizontal = 10.dp),
                             foodImage = imageURL,
                             foodTitle = title,
                             foodDescription = recipe,

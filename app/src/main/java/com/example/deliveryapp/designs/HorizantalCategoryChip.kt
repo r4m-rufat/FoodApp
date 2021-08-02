@@ -61,7 +61,7 @@ fun CardItem(
         ),
         elevation = 3.dp,
         shape = RoundedCornerShape(5.dp),
-        backgroundColor = if (selectedCategoryViewModel.selectedCategory.value == selectedCategory) Color.Cyan else Color.Blue
+        backgroundColor = if (selectedCategoryViewModel.selectedCategory.value == selectedCategory) Color.Cyan else Color(0xFFFFBF00)
     ) {
 
         Text(
