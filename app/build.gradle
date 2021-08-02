@@ -79,4 +79,6 @@ dependencies {
     // TODO Jsoup
     implementation 'org.jsoup:jsoup:1.14.1'
 
+    implementation 'androidx.compose.animation:animation:1.0.0'
+
 }
