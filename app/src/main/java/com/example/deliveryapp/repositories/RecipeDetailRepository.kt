@@ -8,6 +8,7 @@ import com.example.deliveryapp.models.receipes.RecipeResponse
 import com.example.deliveryapp.utils.API_KEY
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -29,7 +30,7 @@ class RecipeDetailRepository {
 
     }
 
-    fun getRecipeInformation(recipeData: MutableState<RecipeResponse?>, id: Int){
+    fun getRecipeInformation(recipeData: MutableState<RecipeResponse?>, id: Int, loading: MutableState<Boolean>){
 
         recipeData.value = null // because data must refresh
 
@@ -53,10 +54,15 @@ class RecipeDetailRepository {
                 }
 
                 override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
+                    recipeData.value = null
+                    loading.value = true
                     Log.d(TAG, "onFailure: Recipe information doesn't come. Reason:\n${t.message}")
                 }
 
             })
+
+            delay(2000L)
+            loading.value = false
 
         }
 

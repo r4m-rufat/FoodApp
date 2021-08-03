@@ -43,11 +43,6 @@ fun RecipeDetail(
             .fillMaxWidth()
     ) {
 
-        TopAppBar(
-            title = "Recipe Detail",
-            icon = painterResource(id = R.drawable.icon),
-            isMenuOn = false
-        )
 
         Column(
             modifier = modifier

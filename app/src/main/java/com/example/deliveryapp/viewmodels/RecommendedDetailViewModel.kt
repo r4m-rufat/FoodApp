@@ -12,12 +12,13 @@ class RecommendedDetailViewModel: ViewModel() {
 
     var recommendedReceipt: MutableState<RecipeResponse?> = mutableStateOf(RecipeResponse())
     var foodID = mutableStateOf(-1)
+    val loading = mutableStateOf(true)
 
     fun getRecommendedFoodReceipt(){
 
         viewModelScope.launch {
 
-            RecipeDetailRepository.instanceOf()?.getRecipeInformation(recommendedReceipt, foodID.value)
+            RecipeDetailRepository.instanceOf()?.getRecipeInformation(recommendedReceipt, foodID.value, loading)
 
         }
 

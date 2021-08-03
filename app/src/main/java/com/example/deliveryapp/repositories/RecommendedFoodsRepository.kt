@@ -32,9 +32,9 @@ class RecommendedFoodsRepository {
 
     }
 
-    fun getSimilarFoodsData(similarList: MutableState<RecommendedResponse?>){
+    fun getRecommendsFoodsData(recommededList: MutableState<RecommendedResponse?>){
 
-        similarList.value = null
+        recommededList.value = null
 
         CoroutineScope(IO).launch {
 
@@ -47,7 +47,7 @@ class RecommendedFoodsRepository {
                     response: Response<RecommendedResponse?>
                 ) {
                     if (response.isSuccessful){
-                        similarList.value = response.body()
+                        recommededList.value = response.body()
                         Log.d(TAG, "onResponse: Healthy foods successfully comes")
                         Log.d(TAG, "onResponse: Item -> ${response.body()?.results?.get(0)?.image}")
                     }

@@ -4,15 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.deliveryapp.R
+import com.example.deliveryapp.designs.RecipeItemShimmerAnimation
 import com.example.deliveryapp.designs.RecommendedDetailScreen
+import com.example.deliveryapp.designs.TopAppBar
 import com.example.deliveryapp.viewmodels.RecommendedDetailViewModel
 
 class RecommendedRecipeDetailFragment : Fragment() {
@@ -21,9 +27,9 @@ class RecommendedRecipeDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(RecommendedDetailViewModel::class.java)
         arguments?.getInt("recID")?.let { id ->
 
-            viewModel = ViewModelProvider(this).get(RecommendedDetailViewModel::class.java)
             viewModel.foodID.value = id
             viewModel.getRecommendedFoodReceipt()
 
@@ -39,14 +45,34 @@ class RecommendedRecipeDetailFragment : Fragment() {
 
             setContent {
 
-                viewModel.recommendedReceipt.value?.let { recipeResponse ->
+                Column(modifier = Modifier.fillMaxWidth()) {
 
-                    RecommendedDetailScreen(
-                        recipe = recipeResponse,
-                        modifier = Modifier
-                            .padding(horizontal = 10.dp)
-                            .fillMaxWidth()
+                    TopAppBar(
+                        title = "Recommended Food",
+                        icon = painterResource(id = R.drawable.icon),
+                        isMenuOn = false,
+                        modifier = Modifier.fillMaxWidth()
                     )
+
+                    if (viewModel.loading.value){
+                        RecipeItemShimmerAnimation(
+                            modifier = Modifier
+                                .padding(10.dp),
+                            isRecomCardOn = false // recommended card doesn't have
+                        )
+                    }else{
+                        viewModel.recommendedReceipt.value?.let { recipeResponse ->
+
+                            RecommendedDetailScreen(
+                                recipe = recipeResponse,
+                                modifier = Modifier
+                                    .padding(horizontal = 10.dp)
+                                    .fillMaxWidth()
+                            )
+
+                        }
+                    }
+
 
                 }
 

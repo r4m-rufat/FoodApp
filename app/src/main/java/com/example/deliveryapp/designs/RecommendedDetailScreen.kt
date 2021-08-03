@@ -36,12 +36,6 @@ fun RecommendedDetailScreen(
             .fillMaxWidth()
     ) {
 
-        TopAppBar(
-            title = "Recommended Food",
-            icon = painterResource(id = R.drawable.icon),
-            isMenuOn = false
-        )
-
         Column(modifier = modifier
             .verticalScroll(scrollState)) {
 

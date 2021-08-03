@@ -14,6 +14,7 @@ class RecipeFragmentViewModel : ViewModel() {
 
     var detailReceipt: MutableState<RecipeResponse?> = mutableStateOf(RecipeResponse())
     var recommendedFoods: MutableState<RecommendedResponse?> = mutableStateOf(RecommendedResponse())
+    val loading = mutableStateOf(true)
 
     var id = mutableStateOf(-1)
 
@@ -21,7 +22,7 @@ class RecipeFragmentViewModel : ViewModel() {
 
         viewModelScope.launch {
 
-            RecipeDetailRepository.instanceOf()!!.getRecipeInformation(detailReceipt, id.value)
+            RecipeDetailRepository.instanceOf()!!.getRecipeInformation(detailReceipt, id.value, loading)
 
         }
     }
@@ -30,7 +31,7 @@ class RecipeFragmentViewModel : ViewModel() {
 
         viewModelScope.launch {
 
-            RecommendedFoodsRepository.instanceOf()?.getSimilarFoodsData(recommendedFoods)
+            RecommendedFoodsRepository.instanceOf()?.getRecommendsFoodsData(recommendedFoods)
 
         }
 
