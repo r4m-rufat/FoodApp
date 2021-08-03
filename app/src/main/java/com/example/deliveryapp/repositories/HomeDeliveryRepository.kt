@@ -51,7 +51,7 @@ class HomeDeliveryRepository {
             ) {
                 if (response.isSuccessful){
                     deliveryData.value =response.body()!!.results
-                    Thread.sleep(2000L) // just show the shimmer animation because api is so fast
+                    Thread.sleep(5000L) // just show the shimmer animation because api is so fast
                     loading.value = false
                     Log.d(TAG, "onResponse: Delivery list successfully comes")
                 }
