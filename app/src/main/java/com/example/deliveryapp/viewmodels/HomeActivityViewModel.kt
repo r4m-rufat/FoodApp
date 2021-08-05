@@ -99,7 +99,7 @@ class HomeActivityViewModel : ViewModel() {
 
     }
 
-    private fun getRecipeList(query: String){
+    fun getRecipeList(query: String){
         viewModelScope.launch {
             HomeDeliveryRepository.instanceOf()!!
                 .setDeliveryData(deliveryList, query = query, page.value.toString(), loading)

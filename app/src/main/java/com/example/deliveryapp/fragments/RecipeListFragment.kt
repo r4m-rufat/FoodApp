@@ -53,12 +53,10 @@ class RecipeListFragment : Fragment() {
                     val scope = rememberCoroutineScope()
 
                     Scaffold(scaffoldState = scaffoldState) {
-
+                        setAllWidgets()
                         if (ConnectionLiveData.observeAsState(true).value) {
-                            setAllWidgets()
                             Log.d(TAG, "onCreateView: Connection comes")
                         } else {
-                            setAllWidgets()
                             Log.d(TAG, "onCreateView: Connection is lost")
                             ConnectionSnackbar(
                                 modifier = Modifier.padding(horizontal = 5.dp),
@@ -127,7 +125,7 @@ class RecipeListFragment : Fragment() {
                 ) {
 
                     /**
-                     * Lazy column not ideal column it is freeze UI
+                     * Lazy column repeats ShimmerAnimation 5 times
                      */
                     LazyColumn() {
                         repeat(5) {
