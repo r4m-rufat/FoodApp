@@ -28,3 +28,20 @@ https://user-images.githubusercontent.com/53703480/128411172-001fe9c7-f8df-4757-
 8. Scaffold
 9. AppBar
 10. LazyColumn, LazyRow
+
+# Libraries
+1. LiveData (Jetpack Compose)
+    implementation "androidx.compose.runtime:runtime-livedata:1.0.0-beta09
+2. Retrofit2
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+3. Accompanist Glide
+    implementation "io.coil-kt:coil-compose:1.3.0"
+5. Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+6. Navigation Components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+7. Jsoup
+    implementation 'org.jsoup:jsoup:1.14.1'
