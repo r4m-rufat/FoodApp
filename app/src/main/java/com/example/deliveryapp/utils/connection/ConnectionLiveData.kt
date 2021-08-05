@@ -54,8 +54,4 @@ object ConnectionLiveData: LiveData<Boolean>() {
 
     }
 
-
-
-
-
 }

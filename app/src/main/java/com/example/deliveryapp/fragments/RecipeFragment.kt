@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.deliveryapp.R
 import com.example.deliveryapp.designs.RecipeDetail
-import com.example.deliveryapp.designs.RecipeItemShimmerAnimation
+import com.example.deliveryapp.designs.recipe_shimmer.RecipeItemShimmerAnimation
 import com.example.deliveryapp.designs.TopAppBar
 import com.example.deliveryapp.utils.checkMinuteTextSinPul
 import com.example.deliveryapp.utils.convertors.convertHTMLToString

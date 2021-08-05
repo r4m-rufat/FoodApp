@@ -43,9 +43,15 @@ class RecipeDetailRepository {
                     response: Response<RecipeResponse>
                 ) {
 
-                    if (response.isSuccessful){
-                        recipeData.value = response.body()!!
-                        Log.d(TAG, "onResponse: Recipe successfully comes")
+                    CoroutineScope(IO).launch {
+
+                        if (response.isSuccessful){
+                            recipeData.value = response.body()!!
+                            delay(2000L)
+                            loading.value = false
+                            Log.d(TAG, "onResponse: Recipe successfully comes")
+
+                        }
 
                     }
 
@@ -60,9 +66,6 @@ class RecipeDetailRepository {
                 }
 
             })
-
-            delay(2000L)
-            loading.value = false
 
         }
 

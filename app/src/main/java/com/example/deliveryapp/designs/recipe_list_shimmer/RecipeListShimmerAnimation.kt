@@ -1,4 +1,4 @@
-package com.example.deliveryapp.designs
+package com.example.deliveryapp.designs.recipe_list_shimmer
 
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.Composable
@@ -8,6 +8,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.deliveryapp.designs.recipe_list_shimmer.ShimmerFoodCard
 
 @Composable
 fun ShimmerAnimation(
@@ -20,7 +21,7 @@ fun ShimmerAnimation(
         targetValue = 1100f,
         animationSpec = infiniteRepeatable(
             tween(durationMillis = 1300,
-            easing = FastOutSlowInEasing),
+                easing = FastOutSlowInEasing),
             RepeatMode.Restart
         )
     )
@@ -46,7 +47,7 @@ fun ShimmerAnimation(
         start = Offset(translateAnimation1, translateAnimation1),
         end = Offset(translateAnimation2, translateAnimation2)
     )
-    
+
     ShimmerFoodCard(
         modifier = modifier,
         brush = brush,

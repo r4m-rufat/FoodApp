@@ -43,15 +43,19 @@ fun FoodList(
                 viewModelProvider.nextRecipePage()
 
             }
-            RecipeCard(recipe = item, modifier = Modifier.padding(vertical = 10.dp), onClickCard = {
-                onCLickItem(it)
-            })
+            RecipeCard(
+                recipe = item,
+                modifier = Modifier.padding(vertical = 10.dp),
+                onClickCard = {
+                    onCLickItem(it)
+                }
+            )
 
         }
 
     }
 
-    if (viewModelProvider.scrollPositionInSearch.value){
+    if (viewModelProvider.scrollPositionInSearch.value) {
         coroutineScope.launch {
             listState.animateScrollToItem(0)
         }

@@ -1,4 +1,4 @@
-package com.example.deliveryapp.designs
+package com.example.deliveryapp.designs.recipe_shimmer
 
 import androidx.compose.animation.core.*
 import androidx.compose.runtime.Composable

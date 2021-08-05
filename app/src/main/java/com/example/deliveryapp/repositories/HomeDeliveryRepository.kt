@@ -8,8 +8,10 @@ import com.example.deliveryapp.models.foods.ComplexResponse
 import com.example.deliveryapp.models.foods.ResultsItem
 import com.example.deliveryapp.utils.API_KEY
 import com.example.deliveryapp.utils.TAG
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
@@ -49,18 +51,22 @@ class HomeDeliveryRepository {
                 call: Call<ComplexResponse>,
                 response: Response<ComplexResponse>
             ) {
-                if (response.isSuccessful){
-                    deliveryData.value =response.body()!!.results
-                    Thread.sleep(5000L) // just show the shimmer animation because api is so fast
-                    loading.value = false
-                    Log.d(TAG, "onResponse: Delivery list successfully comes")
+                CoroutineScope(IO).launch {
+
+                    if (response.isSuccessful){
+                        deliveryData.value =response.body()!!.results
+                        delay(3000L)
+                        loading.value = false
+                        Log.d(TAG, "onResponse: Delivery list successfully comes")
+                    }
+
                 }
             }
 
             override fun onFailure(call: Call<ComplexResponse>, t: Throwable) {
                 deliveryData.value = null
                 loading.value = true
-                Log.d(TAG, "onFailure: Delivery list doesn't come")
+                Log.d(TAG, "onFailure: Delivery list doesn't come. Reason -> ${t.message}")
             }
 
 

@@ -1,4 +1,4 @@
-package com.example.deliveryapp.designs
+package com.example.deliveryapp.designs.recipe_list_shimmer
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*

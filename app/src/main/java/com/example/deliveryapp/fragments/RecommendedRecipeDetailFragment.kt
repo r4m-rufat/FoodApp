@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
@@ -16,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.deliveryapp.R
-import com.example.deliveryapp.designs.RecipeItemShimmerAnimation
+import com.example.deliveryapp.designs.recipe_shimmer.RecipeItemShimmerAnimation
 import com.example.deliveryapp.designs.RecommendedDetailScreen
 import com.example.deliveryapp.designs.TopAppBar
 import com.example.deliveryapp.viewmodels.RecommendedDetailViewModel

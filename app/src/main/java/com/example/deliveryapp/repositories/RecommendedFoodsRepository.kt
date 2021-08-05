@@ -32,7 +32,7 @@ class RecommendedFoodsRepository {
 
     }
 
-    fun getRecommendsFoodsData(recommededList: MutableState<RecommendedResponse?>){
+    fun getRecommendedFoodsData(recommededList: MutableState<RecommendedResponse?>){
 
         recommededList.value = null
 
@@ -49,7 +49,6 @@ class RecommendedFoodsRepository {
                     if (response.isSuccessful){
                         recommededList.value = response.body()
                         Log.d(TAG, "onResponse: Healthy foods successfully comes")
-                        Log.d(TAG, "onResponse: Item -> ${response.body()?.results?.get(0)?.image}")
                     }
                 }
 

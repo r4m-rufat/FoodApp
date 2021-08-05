@@ -31,7 +31,7 @@ class RecipeFragmentViewModel : ViewModel() {
 
         viewModelScope.launch {
 
-            RecommendedFoodsRepository.instanceOf()?.getRecommendsFoodsData(recommendedFoods)
+            RecommendedFoodsRepository.instanceOf()?.getRecommendedFoodsData(recommendedFoods)
 
         }
 

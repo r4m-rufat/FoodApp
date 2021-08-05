@@ -5,33 +5,33 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Scaffold
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.deliveryapp.R
 import com.example.deliveryapp.designs.*
+import com.example.deliveryapp.designs.recipe_list_shimmer.ShimmerAnimation
 import com.example.deliveryapp.ui.theme.DeliveryAppTheme
 import com.example.deliveryapp.utils.TAG
 import com.example.deliveryapp.utils.connection.ConnectionLiveData
 import com.example.deliveryapp.utils.recipe_list.getAllFoodCategoriesValue
 import com.example.deliveryapp.viewmodels.HomeActivityViewModel
-import com.example.deliveryapp.viewmodels.RecipeFragmentViewModel
 import com.example.deliveryapp.viewmodels.SelectedCategoryViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+
+@ExperimentalCoroutinesApi
 class RecipeListFragment : Fragment() {
 
     private lateinit var viewModelProvider: HomeActivityViewModel
@@ -49,20 +49,33 @@ class RecipeListFragment : Fragment() {
                 DeliveryAppTheme {
 
                     getViewModels()
+                    val scaffoldState = rememberScaffoldState()
+                    val scope = rememberCoroutineScope()
 
-                    if (ConnectionLiveData.observeAsState(false).value){
-                        setAllWidgets()
-                        Log.d(TAG, "onCreateView: Connection comes")
-                    }else{
-                        Log.d(TAG, "onCreateView: Connection is lost")
+                    Scaffold(scaffoldState = scaffoldState) {
+
+                        if (ConnectionLiveData.observeAsState(true).value) {
+                            setAllWidgets()
+                            Log.d(TAG, "onCreateView: Connection comes")
+                        } else {
+                            setAllWidgets()
+                            Log.d(TAG, "onCreateView: Connection is lost")
+                            ConnectionSnackbar(
+                                modifier = Modifier.padding(horizontal = 5.dp),
+                                scaffoldState = scaffoldState,
+                                scope = scope
+                            )
+                        }
+
                     }
+
                 }
 
             }
         }
     }
 
-    private fun getViewModels(){
+    private fun getViewModels() {
 
         viewModelProvider =
             ViewModelProvider(requireActivity()).get(HomeActivityViewModel::class.java)
@@ -75,7 +88,7 @@ class RecipeListFragment : Fragment() {
     }
 
     @Composable
-    private fun setAllWidgets(){
+    private fun setAllWidgets() {
 
         Column(modifier = Modifier.fillMaxSize()) {
 
@@ -88,6 +101,7 @@ class RecipeListFragment : Fragment() {
             TextFieldDesign(onClick = { text, _ ->
                 viewModelProvider.query.value = text
                 viewModelProvider.resetSearchState()
+                selectedCategoryViewModel.selectedCategory.value = ""
             })
             Spacer(modifier = Modifier.height(5.dp))
             MenuList(
@@ -105,26 +119,28 @@ class RecipeListFragment : Fragment() {
 
             val page = viewModelProvider.page.value
 
-            if (viewModelProvider.loading.value){
-                Column(modifier = Modifier
-                    .padding(10.dp)
-                    .fillMaxWidth()
-                    ) {
+            if (viewModelProvider.loading.value) {
+                Column(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .fillMaxWidth()
+                ) {
 
                     /**
                      * Lazy column not ideal column it is freeze UI
                      */
                     LazyColumn() {
-                       repeat(5){
-                           item {
-                               ShimmerAnimation(modifier = Modifier.
-                               padding(bottom = 10.dp))
-                           }
-                       }
+                        repeat(5) {
+                            item {
+                                ShimmerAnimation(
+                                    modifier = Modifier.padding(bottom = 10.dp)
+                                )
+                            }
+                        }
                     }
 
                 }
-            }else{
+            } else {
                 deliveryList?.let { recipes ->
                     FoodList(
                         recipes = recipes,
