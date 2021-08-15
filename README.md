@@ -42,6 +42,6 @@ https://user-images.githubusercontent.com/53703480/128411172-001fe9c7-f8df-4757-
     - implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"<br />
 6. Navigation Components<br />
     ```implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    - implementation "androidx.navigation:navigation-ui-ktx:$nav_version"```
+     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"```
 7. Jsoup<br />
     - implementation 'org.jsoup:jsoup:1.14.1'<br />
